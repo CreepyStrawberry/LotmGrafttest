@@ -1,0 +1,13 @@
+name: LotmFool
+version: '${version}'
+main: Dipansu.net.untitled1.LotmPlugin
+api-version: '26.2'
+load: POSTWORLD
+description: "lotm test"
+commands:
+  graft:
+    description: Choose your Grafting mode
+    usage: /graft <damage|swap|death>
+  sequence:
+    description: Set your Sequence (testing)
+    usage: /sequence <0-9>
