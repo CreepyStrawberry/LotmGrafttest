@@ -21,11 +21,11 @@ public class GraftManager {
 
     public record Redirect(UUID target, long expiresAt) {}
 
-    /** source UUID -> where its damage goes */
+
     public final Map<UUID, Redirect> redirects = new HashMap<>();
-    /** source UUID -> who dies in its place */
+
     public final Map<UUID, Redirect> deathGrafts = new HashMap<>();
-    /** prevents infinite redirect loops */
+
     public final Set<UUID> guard = new HashSet<>();
 
     private long durationMs(PlayerData d) { return d.sequence == 0 ? 20_000 : 10_000; }
@@ -74,7 +74,7 @@ public class GraftManager {
         caster.playSound(caster.getLocation(), Sound.BLOCK_END_PORTAL_FRAME_FILL, 1f, 0.6f);
     }
 
-    /** Position Graft: swap locations. */
+
     private void swap(Entity a, Entity b) {
         Location la = a.getLocation().clone();
         Location lb = b.getLocation().clone();
@@ -82,7 +82,7 @@ public class GraftManager {
         b.teleport(la);
     }
 
-    /** Grey "fog thread" between the two grafted things. */
+
     private void drawThread(Location from, Location to) {
         World w = from.getWorld();
         if (w == null || !w.equals(to.getWorld())) return;

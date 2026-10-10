@@ -40,9 +40,9 @@ public class GraftListener implements Listener {
         return true;
     }
 
-    // ---------- Target selection ----------
 
-    /** Right-click an entity with an Ender Eye: pick source, then destination. */
+
+
     @EventHandler
     public void onEntityClick(PlayerInteractEntityEvent e) {
         if (e.getHand() != EquipmentSlot.HAND) return;
@@ -55,7 +55,7 @@ public class GraftListener implements Listener {
         pick(p, d, e.getRightClicked());
     }
 
-    /** Sneak + right-click air: select YOURSELF as a target. */
+
     @EventHandler
     public void onAirClick(PlayerInteractEvent e) {
         if (e.getHand() != EquipmentSlot.HAND) return;
@@ -84,9 +84,9 @@ public class GraftListener implements Listener {
         manager.cast(p, d, first, clicked);
     }
 
-    // ---------- Damage Graft ----------
 
-    /** Damage dealt to the source lands on the destination instead. */
+
+
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onDamage(EntityDamageEvent e) {
         UUID id = e.getEntity().getUniqueId();
@@ -119,9 +119,9 @@ public class GraftListener implements Listener {
                 20, 0.3, 0.5, 0.3, 0.02);
     }
 
-    // ---------- Death Graft ----------
 
-    /** When the source would die, the destination dies instead. One use. */
+
+
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onFatalDamage(EntityDamageEvent e) {
         if (!(e.getEntity() instanceof LivingEntity source)) return;
@@ -135,24 +135,24 @@ public class GraftListener implements Listener {
             return;
         }
 
-        // Only trigger on a killing blow
+
         if (e.getFinalDamage() < source.getHealth()) return;
 
         Entity dst = Bukkit.getEntity(r.target());
         if (!(dst instanceof LivingEntity decoy) || decoy.isDead()) {
-            manager.deathGrafts.remove(id);   // decoy gone: source dies normally
+            manager.deathGrafts.remove(id);
             return;
         }
 
-        manager.deathGrafts.remove(id);       // one-time use
+        manager.deathGrafts.remove(id);
         e.setCancelled(true);
 
-        // Source survives with 30% health
+
         AttributeInstance max = source.getAttribute(Attribute.MAX_HEALTH);
         double maxHp = max != null ? max.getValue() : 20;
         source.setHealth(Math.max(1, maxHp * 0.3));
 
-        // Decoy takes the death
+
         decoy.setHealth(0);
 
         source.getWorld().playSound(source.getLocation(), Sound.ITEM_TOTEM_USE, 1f, 0.7f);

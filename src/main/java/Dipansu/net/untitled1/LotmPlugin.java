@@ -28,7 +28,7 @@ public final class LotmPlugin extends JavaPlugin {
         getCommand("graft").setTabCompleter(cmd);
         getCommand("sequence").setExecutor(cmd);
 
-        // Spirituality regeneration and action bar, once per second
+
         Bukkit.getScheduler().runTaskTimer(this, () -> {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 PlayerData d = data(p);
